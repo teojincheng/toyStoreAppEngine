@@ -1,0 +1,47 @@
+runtime: php55
+api_version: 1
+threadsafe: true
+
+handlers:
+
+# Application static resources
+
+- url: /css
+  static_dir: public/css
+
+- url: /js
+  static_dir: public/js
+
+- url: /img
+  static_dir: public/img
+
+- url: /fonts
+  static_dir: public/fonts
+
+# Form handler
+
+- url: /post.php
+  script: public/post.php
+  
+  
+- url: /update.php
+  script: public/update.php
+  
+- url: /doUpdate.php
+  script: public/doUpdate.php
+  
+- url: /maintain.php
+  script: public/maintain.php
+  
+- url: /doDelete.php
+  script: public/doDelete.php
+  
+- url: /shownDelete.php
+  script: public/shownDelete.php
+  
+  
+
+# Default handler
+
+- url: .*
+  script: public/main.php

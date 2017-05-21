@@ -42,18 +42,20 @@ class RepositoryUser {
     
    
 
-   /**
-    * Inserts an entry of a user into the datastore
-    * 
-    * @param type $str_name actual name of user
-    * @param type $str_username username to login
-    * @param type $str_password password to login
-    * @param type $str_role role of the user in the system
-    * @param type $str_email email address of the user
-    */
-    public function createUser($str_name, $str_username, $str_password, $str_role, $str_email) {
+  /**
+   * Inserts an entry of a user into the datastore. 
+   * 
+   * @param type $int_id id of one entry
+   * @param type $str_name actual name of user
+   * @param type $str_username username to login
+   * @param type $str_password password to login
+   * @param type $str_role role of the user
+   * @param type $str_email email address of the user. 
+   */
+    public function createUser($int_id,$str_name, $str_username, $str_password, $str_role, $str_email) {
         $obj_store = $this->getStore();
         $obj_store->upsert($obj_store->createEntity([
+                    'id' => $int_id,
                     'name' => $str_name,
                     'username' => $str_username,
                     'password' => $str_password,
@@ -67,7 +69,7 @@ class RepositoryUser {
     /**
      * Update an entry of a user 
      * 
-     * @param type $postToUpdate one entity object that represents a toy
+     * @param type $userToUpdate one entity object that represents a toy
      */
     public function updateUser($userToUpdate) {
         $obj_store = $this->getStore();
@@ -101,6 +103,7 @@ class RepositoryUser {
      */
     private function makeSchema() {
         return (new Schema('users'))
+                        ->addInteger('id',FALSE)
                         ->addString('name', FALSE)
                         ->addString('username', FALSE)
                         ->addString('password', FALSE)

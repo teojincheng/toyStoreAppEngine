@@ -25,6 +25,9 @@ class Repository {
      * @var Store|null
      */
     private $obj_store = NULL;
+    
+    
+  
 
     /**
      * @return \Memcached|null
@@ -52,7 +55,27 @@ class Repository {
           }
          */
         $obj_store = $this->getStore();
-        $arr_posts = $obj_store->query("SELECT * FROM toyStore ORDER BY posted DESC")->fetchPage(POST_LIMIT);
+        $arr_posts = $obj_store->query("SELECT * FROM toyStore ORDER BY posted DESC")->fetchPage(10);
+        return $arr_posts;
+    }
+    
+    
+    public function getRecentToysThree() {
+        $obj_store = $this->getStore();
+        $arr_posts = $obj_store->query("SELECT * FROM toyStore ORDER BY posted DESC LIMIT 3 OFFSET 0")->fetchPage(10);
+        return $arr_posts;
+    }
+    
+    /**
+     * Execute an sql query against this datastore
+     * 
+     * @param type $sql the sql statement to execute
+     * @return type an array of toy entity as result of sql statment. 
+     */
+    
+    public function executeToysQuery($sql){
+        $obj_store = $this->getStore();
+        $arr_posts = $obj_store->query($sql)->fetchPage(100);
         return $arr_posts;
     }
 
@@ -79,18 +102,19 @@ class Repository {
     }
 
     /**
-     * Inserts any entry of a toy into the datastore
+     * Inserts an entry of a toy into the datastore
      * 
-     * @param type $str_name name of the toy
-     * @param type $str_desc description of the toy
-     * @param type $flt_price price of the toy
+     * @param type $int_id id of entry
+     * @param type $str_name name of toy
+     * @param type $str_desc description of toy
+     * @param type $flt_price price of one toy
      * @param type $str_info information about the toy
-     * @param type $int_rating average rating of the toy
-     * @param type $str_path path to google cloud bucket which holds image of the toy
+     * @param type $str_path url to image of the toy
      */
-    public function createToy($str_name, $str_desc, $flt_price, $str_info, $str_path) {
+    public function createToy($int_id,$str_name, $str_desc, $flt_price, $str_info, $str_path) {
         $obj_store = $this->getStore();
         $obj_store->upsert($obj_store->createEntity([
+                    'id' => $int_id,
                     'name' => $str_name,
                     'txtDescript' => $str_desc,
                     'price' => $flt_price,
@@ -106,7 +130,7 @@ class Repository {
     /**
      * Update an entry of a toy. 
      * 
-     * @param type $postToUpdate one entity object that represents a toy
+     * @param type $toyToUpdate one entity object that represents a toy
      */
     public function updateToy($toyToUpdate) {
         $obj_store = $this->getStore();
@@ -128,11 +152,11 @@ class Repository {
     /**
      * Delete an entry of a toy
      * 
-     * @param type $postToDelete one toy entity object
+     * @param type $toyToDelete one toy entity object
      */
-    public function deleteToy($postToDelete) {
+    public function deleteToy($toyToDelete) {
         $obj_store = $this->getStore();
-        $obj_store->delete($postToDelete);
+        $obj_store->delete($toyToDelete);
     }
 
     /**
@@ -150,6 +174,7 @@ class Repository {
      */
     private function makeSchema() {
         return (new Schema('toyStore'))
+                        ->addInteger("id",FALSE)
                         ->addString('name', FALSE)
                         ->addString('txtDescript', FALSE)
                         ->addFloat('price', FALSE)

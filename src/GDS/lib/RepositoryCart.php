@@ -38,17 +38,19 @@ class RepositoryCart {
 
     
 
-   /**
-    * Insert one entry of item into the shopping cart
-    * 
-    * @param type $int_toyid cloud datastore id of the toy
-    * @param type $int_userid cloud datastore id of the user
-    * @param type $int_qty amount of toy the user add into cart
-    * @param type $flt_unitPrice the price of one toy that is being added into cart
-    */
-    public function createCartItem($int_toyid, $int_userid, $int_qty, $flt_unitPrice) {
+  /**
+   * Insert an entry of one cart item into datastore
+   * 
+   * @param type $int_id id of entry
+   * @param type $int_toyid id of one toy
+   * @param type $int_userid id of the user
+   * @param type $int_qty how much of the toy user buy
+   * @param type $flt_unitPrice price of that one toy
+   */
+    public function createCartItem($int_id,$int_toyid, $int_userid, $int_qty, $flt_unitPrice) {
         $obj_store = $this->getStore();
         $obj_store->upsert($obj_store->createEntity([
+                    'id' => $int_id,
                     'toyId' => $int_toyid,
                     'userid' => $int_userid,
                     'qty' => $int_qty,
@@ -73,6 +75,7 @@ class RepositoryCart {
      */
     private function makeSchema() {
         return (new Schema('carts'))
+                        ->addInteger('id', FALSE)
                         ->addInteger('toyId', FALSE)
                         ->addInteger('userid', FALSE)
                         ->addInteger('qty', FALSE)

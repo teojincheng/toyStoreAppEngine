@@ -47,7 +47,7 @@ $upload_url = CloudStorageTools::createUploadUrl('/post.php', $options);
                 <div class="col-md-4">
                     <div class="well">
                         <h3>Create</h3>
-                        <form method="POST" action="<?php echo $upload_url ?>" enctype="multipart/form-data" >
+                        <form method="POST" action="/post.php" enctype="multipart/form-data" >
                             <div class="form-group">
                                 <input type="text" class="form-control" name="name" id="name" placeholder="Name"  />
                             </div>
@@ -100,7 +100,9 @@ $upload_url = CloudStorageTools::createUploadUrl('/post.php', $options);
 
                                     // Grab posts
                                     $obj_repo = new \GDS\lib\Repository();
-                                    $arr_posts = $obj_repo->getRecentToys();
+                                    $arr_posts = $obj_repo->getRecentToysThree();
+                                    
+                                    print_r($arr_posts);
 
                                     // Show them
 

@@ -17,31 +17,16 @@ handlers:
 
 - url: /fonts
   static_dir: public/fonts
-
-# Form handler
-
+  
+  
 - url: /post.php
   script: public/post.php
-  
-  
-- url: /update.php
-  script: public/update.php
-  
-- url: /doUpdate.php
-  script: public/doUpdate.php
-  
-- url: /maintain.php
-  script: public/maintain.php
-  
-- url: /doDelete.php
-  script: public/doDelete.php
-  
-- url: /shownDelete.php
-  script: public/shownDelete.php
+
+
   
   
 
 # Default handler
 
 - url: .*
-  script: public/main.php
+  script: public/index.php

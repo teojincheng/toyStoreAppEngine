@@ -1,0 +1,70 @@
+.productSmallPic img{
+    height: 150px;
+    
+}
+.carousel {
+    background-color: white;
+    color: white;
+}
+
+.carousel-control.right{
+    background-image: none;
+}
+
+.carousel-control.left{
+    background-image: none;
+}
+
+.glyphicon-chevron-left{
+    color: grey;
+}
+
+.glyphicon-chevron-right{
+    color: grey;
+}
+
+.container div {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.carousel-inner > .item > img{
+    margin-left: auto;
+    margin-right: auto;
+    height: 300px;
+    
+}
+
+
+.col-md-4 img{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.col-md-4 figcaption{
+    text-align: center
+}
+
+.carousel-indicators .active{
+    background-color: grey;
+    border-color: grey;
+    visibility: hidden;
+}
+
+
+.carousel-indicators li{
+    background-color: LightGrey;
+    border-color: LightGrey;
+    visibility: hidden;
+}
+
+a:link, a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+
+
+
+

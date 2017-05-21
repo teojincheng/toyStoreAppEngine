@@ -17,16 +17,16 @@ $str_info = substr(filter_input(INPUT_POST, 'information', FILTER_SANITIZE_STRIN
 
 
 
-
+/*
 $file_name = $_FILES['image']['name'];
 $temp_name = $_FILES['image']['tmp_name'];
 move_uploaded_file($temp_name, "gs://${my_bucket}/${file_name}");
 $str_path = "https://storage.googleapis.com/${my_bucket}/${file_name}";
-
+*/
 
 //syslog(LOG_DEBUG, 'Proceeding... ' . print_r($_SERVER, TRUE) . "\n\n" . print_r($_POST, TRUE));
 $obj_repo = new Repository();
-$obj_repo->createToy($str_name, $str_desc, $flt_price, $str_info, $str_path);
+$obj_repo->createToy(2,$str_name, $str_desc, $flt_price, $str_info, " ");
 header("Location: /");
 
 

@@ -18,15 +18,11 @@ $toy_repo = new \GDS\lib\Repository();
 
     </head>
     <body>
-        <?php //include 'navbar.php';  ?>
+        <?php include 'navbar.php';  ?>
         <?php
-      
-      $arrLatestThree = $toy_repo->executeToysQuery("SELECT * FROM toyStore ORDER BY posted DESC");
-    //  $arrNextThree = $toy_repo->executeToysQuery("SELECT * FROM toyStore ORDER BY posted DESC LIMIT 3 OFFSET 3");  
-      
-     
-        
-       
+        // get the most recent added toys. 6 of them. 
+        $arrLatestThree = $toy_repo->getRecentToysTopThree();
+        $arrNextThree = $toy_repo->getRecentToysNextThree();
         ?>
 
         <div class="container">
@@ -63,7 +59,7 @@ $toy_repo = new \GDS\lib\Repository();
             </div>
             <h2>Popular toys</h2>
             <div class="row">
-                <?php foreach ($arrLatestThree as $toy) {  ?>
+                <?php foreach ($arrLatestThree as $toy) { ?>
                     <div class="col-md-4">
                         <figure class="productSmallPic">
                             <a href="itemDetail.php?id=<?php echo $toy->id; ?>"> <img class="img-responsive" src="<?php echo $toy->imgpath; ?>" alt="img of toy" >
@@ -74,7 +70,22 @@ $toy_repo = new \GDS\lib\Repository();
             </div>
             <br>
             <br>
-            
+
+
+            <div class="row">
+                <?php foreach ($arrNextThree as $toyNext) { ?>
+                    <div class="col-md-4">
+                        <figure class="productSmallPic">
+                            <a href="itemDetail.php?id=<?php echo $toyNext->id; ?>">  <img class="img-responsive"  src="<?php echo $toyNext->imgpath; ?>" alt="img of toy" >
+                                <figcaption> <?php echo $toyNext->name; ?></figcaption> </a>
+                        </figure>
+                    </div>
+                    <?php
+                }
+                ?>
+
+            </div>
+
 
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

@@ -20,6 +20,22 @@ class RepositoryUser {
      * @var Store|null
      */
     private $obj_store = NULL;
+    
+    
+    
+    
+    /**
+     * Retrieve all the columns of a record stored in the datastore of a user
+     * 
+     * @param type $inUsername username user supplied when user login
+     * @return type an array which contain the data of user. 
+     */
+    public function getAllColsFromDatastore($inUsername){
+        $obj_store = $this->getStore();
+        $arr_userhash = $obj_store->query("SELECT * FROM users WHERE sername = '".$inUsername."' ");
+        return $arr_userhash;
+        
+    }
 
   
 

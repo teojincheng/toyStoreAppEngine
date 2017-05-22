@@ -60,9 +60,15 @@ class Repository {
     }
     
     
-    public function getRecentToysThree() {
+    public function getRecentToysTopThree() {
         $obj_store = $this->getStore();
-        $arr_posts = $obj_store->query("SELECT * FROM toyStore ORDER BY posted DESC LIMIT 3 OFFSET 0")->fetchPage(10);
+        $arr_posts = $obj_store->query("SELECT * FROM toyStore ORDER BY posted DESC")->fetchPage(3,0);
+        return $arr_posts;
+    }
+    
+        public function getRecentToysNextThree() {
+        $obj_store = $this->getStore();
+        $arr_posts = $obj_store->query("SELECT * FROM toyStore ORDER BY posted DESC")->fetchPage(3,3);
         return $arr_posts;
     }
     

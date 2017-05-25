@@ -32,8 +32,8 @@ class RepositoryUser {
      */
     public function getAllColsFromDatastore($inUsername){
         $obj_store = $this->getStore();
-        $arr_userhash = $obj_store->query("SELECT * FROM users WHERE sername = '".$inUsername."' ");
-        return $arr_userhash;
+        $arr_user = $obj_store->fetchOne("SELECT * FROM users WHERE username = @inname",['inname'=>$inUsername]);
+        return $arr_user;
         
     }
 
@@ -119,12 +119,12 @@ class RepositoryUser {
      */
     private function makeSchema() {
         return (new Schema('users'))
-                        ->addInteger('id',FALSE)
-                        ->addString('name', FALSE)
-                        ->addString('username', FALSE)
-                        ->addString('password', FALSE)
-                        ->addString('role', FALSE)
-                        ->addString('email', FALSE)
+                        ->addInteger('id')
+                        ->addString('name')
+                        ->addString('username')
+                        ->addString('password')
+                        ->addString('role')
+                        ->addString('email')
                         
         ;
     }

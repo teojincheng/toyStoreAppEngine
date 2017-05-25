@@ -12,9 +12,6 @@ use GDS\Store;
 
 class RepositoryCart {
 
-   
-   
-
     /**
      * GDS Store instance
      *
@@ -22,7 +19,7 @@ class RepositoryCart {
      */
     private $obj_store = NULL;
 
-  
+    
 
     /**
      * Retrive all the cart items of one user.
@@ -32,22 +29,20 @@ class RepositoryCart {
      */
     public function getCartItemsOfUser($userId) {
         $obj_store = $this->getStore();
-        $arr_posts = $obj_store->query("SELECT * FROM carts WHERE userid = '".$userId."'");
+        $arr_posts = $obj_store->query("SELECT * FROM carts WHERE userid = '" . $userId . "'");
         return $arr_posts;
     }
 
-    
-
-  /**
-   * Insert an entry of one cart item into datastore
-   * 
-   * @param type $int_id id of entry
-   * @param type $int_toyid id of one toy
-   * @param type $int_userid id of the user
-   * @param type $int_qty how much of the toy user buy
-   * @param type $flt_unitPrice price of that one toy
-   */
-    public function createCartItem($int_id,$int_toyid, $int_userid, $int_qty, $flt_unitPrice) {
+    /**
+     * Insert an entry of one cart item into datastore
+     * 
+     * @param type $int_id id of entry
+     * @param type $int_toyid id of one toy
+     * @param type $int_userid id of the user
+     * @param type $int_qty how much of the toy user buy
+     * @param type $flt_unitPrice price of that one toy
+     */
+    public function createCartItem($int_id, $int_toyid, $int_userid, $int_qty, $flt_unitPrice) {
         $obj_store = $this->getStore();
         $obj_store->upsert($obj_store->createEntity([
                     'id' => $int_id,
@@ -56,8 +51,6 @@ class RepositoryCart {
                     'qty' => $int_qty,
                     'unitPrice' => $flt_unitPrice
         ]));
-
-       
     }
 
     /**
@@ -75,11 +68,11 @@ class RepositoryCart {
      */
     private function makeSchema() {
         return (new Schema('carts'))
-                        ->addInteger('id', FALSE)
-                        ->addInteger('toyId', FALSE)
-                        ->addInteger('userid', FALSE)
-                        ->addInteger('qty', FALSE)
-                        ->addFloat('unitPrice', FALSE)
+                        ->addInteger('id')
+                        ->addInteger('toyId')
+                        ->addInteger('userid')
+                        ->addInteger('qty')
+                        ->addFloat('unitPrice')
         ;
     }
 

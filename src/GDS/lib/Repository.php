@@ -102,7 +102,7 @@ class Repository {
      */
     private function updateCache() {
         $obj_store = $this->getStore();
-        $arr_posts = $obj_store->query("SELECT * FROM toyStore")->fetchPage(POST_LIMIT);
+        $arr_posts = $obj_store->query("SELECT * FROM toyStore")->fetchPage(10);
         $this->getCache()->set('recent', $arr_posts);
         return $arr_posts;
     }
@@ -180,14 +180,14 @@ class Repository {
      */
     private function makeSchema() {
         return (new Schema('toyStore'))
-                        ->addInteger("id",FALSE)
-                        ->addString('name', FALSE)
-                        ->addString('txtDescript', FALSE)
-                        ->addFloat('price', FALSE)
-                        ->addString('information', FALSE)
-                        ->addInteger('rating', FALSE)
+                        ->addInteger("id")
+                        ->addString('name')
+                        ->addString('txtDescript')
+                        ->addFloat('price')
+                        ->addString('information')
+                        ->addInteger('rating')
                         ->addDatetime('posted')
-                        ->addString('imgpath', FALSE)
+                        ->addString('imgpath')
         ;
     }
 

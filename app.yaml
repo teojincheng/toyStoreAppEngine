@@ -19,10 +19,26 @@ handlers:
   static_dir: public/fonts
   
   
-- url: /post.php
-  script: public/post.php
+- url: /login.php
+  script: public/login.php
+  
+  
+- url: /logout.php
+  script: public/logout.php
 
+  
+  
+- url: /navbar.php
+  script: public/navbar.php
 
+- url: /desSession.php
+  script: public/desSession.php
+  
+  
+
+  
+- url: /index.php
+  script: public/index.php
   
   
 

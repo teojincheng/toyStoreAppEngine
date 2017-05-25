@@ -1,18 +1,21 @@
 <?php
-if (isset($_SESSION["username"])) {
+require_once('../vendor/autoload.php');
+require_once('../config.php');
+$cart_repo = new \GDS\lib\RepositoryCart();
+if (isset($_SESSION["userRealname"])) {
 
     $showZero = true;
 
-    $getCartQuery = "SELECT qty FROM cart WHERE userId = '" . $_SESSION["userid"] . "' ";
-    $getCartResult = mysqli_query($dbLink, $getCartQuery);
-    $numOfRows = mysqli_num_rows($getCartResult);
+    $allCartInfoArr = $cart_repo->getCartItemsOfUser($_SESSION["userid"]);
+    $numOfRecords = count($allCartInfoArr);
 
-    if ($numOfRows != 0) {
+    if ($numOfRecords != 0) {
         $numOfItems = 0;
 
         $showZero = false;
-        while ($cartResultRow = mysqli_fetch_assoc($getCartResult)) {
-            $numOfItems = $numOfItems + $cartResultRow["qty"];
+
+        foreach ($allCartInfoArr as $cartItem) {
+            $numOfItems = $numOfItems + $cartItem->qty;
         }
     }
 }
@@ -55,18 +58,18 @@ if (isset($_SESSION["username"])) {
 
             </form>
             <ul class="nav navbar-nav navbar-right">
-<?php if (isset($_SESSION["username"])) { ?>
+<?php if (isset($_SESSION["userRealname"])) { ?>
                     <li><a href="shoppingCart.php">
-    <?php if ($showZero) { ?>
+                    <?php if ($showZero) { ?>
                                 <span class="glyphicon glyphicon-shopping-cart"></span> Cart [0] </a></li>
-                    <?php } else { ?>
+                            <?php } else { ?>
                         <span class="glyphicon glyphicon-shopping-cart"></span> Cart [<?php echo $numOfItems; ?>] </a></li>
-                            <?php } ?>
-
+                    <?php } ?>
+            <li><a href="#"><?php echo $_SESSION["userRealname"]; ?></a></li>
                     <li><a href="logout.php">Logout</a></li>
-                <?php } else { ?>
+<?php } else { ?>
                     <li><a href="login.php">Login</a></li>
-<?php } ?>
+                <?php } ?>
             </ul>
 
         </div>

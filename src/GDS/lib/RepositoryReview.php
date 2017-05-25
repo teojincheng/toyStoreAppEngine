@@ -75,11 +75,11 @@ class RepositoryReview {
      */
     private function makeSchema() {
         return (new Schema('reviews'))
-                        ->addInteger('id', FALSE)
-                        ->addInteger('toyId', FALSE)
-                        ->addString('username', FALSE)
-                        ->addString('reviewText', FALSE)
-                        ->addInteger('rating', FALSE)
+                        ->addInteger('id')
+                        ->addInteger('toyId')
+                        ->addString('username')
+                        ->addString('reviewText')
+                        ->addInteger('rating')
         ;
     }
 

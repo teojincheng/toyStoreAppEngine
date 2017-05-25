@@ -6,13 +6,14 @@ $user_repo = new \GDS\lib\RepositoryUser();
 $loginFail = false;
 if (isset($_POST["username"])) {
     $allInfoArr = $user_repo->getAllColsFromDatastore($_POST["username"]);
-    $userHashed = $allInfoArr[0]->password;
-    if (password_verify($_POST["password"], $hash)) {
-         $_SESSION["username"] = $dosomething;
-    }else{
+    $userHashed = $allInfoArr->password;
+    if (password_verify($_POST["password"], $userHashed)) {
+        $_SESSION["userRealname"] = $allInfoArr->name;
+        $_SESSION["userid"] = $allInfoArr->id;
+        header("Location: index.php");
+    } else {
         $loginFail = true;
     }
-    
 }
 ?>
 <!DOCTYPE html>
@@ -25,23 +26,23 @@ if (isset($_POST["username"])) {
               <link rel="stylesheet" href="css/main.css"> 
     </head>
     <body>
-<?php include 'navbar.php'; ?>
+        <?php include 'navbar.php'; ?>
         <div class="container">
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
-                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                    <form action="login.php" method="POST">
                         <div class="form-group">
                             <label for="usernameInput">Username: </label>
                             <input class="form-control" type="text" name="username" value="feliwee" readonly>
                         </div>
                         <div class="form-group">
                             <label for="pwInput">Password: </label>
-                            <input class="form-control" type="password" name="password" value="shfw088" readonly>
+                            <input class="form-control" type="password" name="password" value="shfw88" readonly>
                         </div>
                         <input type="submit" value="Login">
 
-<?php if ($loginFail) { ?>
+                        <?php if ($loginFail) { ?>
                             <div class="alert alert-warning">Login failed </div>
                         <?php } ?>
 

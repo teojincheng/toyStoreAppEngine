@@ -104,10 +104,10 @@ class RepositoryId {
      */
     private function makeSchema() {
         return (new Schema('ids'))
-                        ->addInteger('toyid', FALSE)
-                        ->addInteger('cartid', FALSE)
-                        ->addInteger('reviewid', FALSE)
-                        ->addInteger('userid', FALSE)
+                        ->addInteger('toyid')
+                        ->addInteger('cartid')
+                        ->addInteger('reviewid')
+                        ->addInteger('userid')
 
         ;
     }

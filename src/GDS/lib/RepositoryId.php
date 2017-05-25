@@ -2,6 +2,8 @@
 <?php
 
 /**
+ * Author: Teo Jin Cheng 
+ * 
  * This class represents one datastore.
  * Contains record of the ID for each datastore
  */

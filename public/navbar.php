@@ -1,19 +1,25 @@
 <?php
+/**
+ * Author: Teo Jin Cheng 
+ */
 require_once('../vendor/autoload.php');
 require_once('../config.php');
 $cart_repo = new \GDS\lib\RepositoryCart();
 if (isset($_SESSION["userRealname"])) {
 
+    /**
+     * do a query on the datastore based current user's userid
+     * check the result of the query got how many rows for user's shopping cart
+     * if there is at least one row, sum the quanitity of items in the cart
+     * if not show a value of 0 for the cart. 
+     * 
+     */
     $showZero = true;
-
     $allCartInfoArr = $cart_repo->getCartItemsOfUser($_SESSION["userid"]);
     $numOfRecords = count($allCartInfoArr);
-
     if ($numOfRecords != 0) {
         $numOfItems = 0;
-
         $showZero = false;
-
         foreach ($allCartInfoArr as $cartItem) {
             $numOfItems = $numOfItems + $cartItem->qty;
         }
@@ -58,16 +64,16 @@ if (isset($_SESSION["userRealname"])) {
 
             </form>
             <ul class="nav navbar-nav navbar-right">
-<?php if (isset($_SESSION["userRealname"])) { ?>
+                <?php if (isset($_SESSION["userRealname"])) { ?>
                     <li><a href="shoppingCart.php">
-                    <?php if ($showZero) { ?>
+                            <?php if ($showZero) { ?>
                                 <span class="glyphicon glyphicon-shopping-cart"></span> Cart [0] </a></li>
-                            <?php } else { ?>
+                    <?php } else { ?>
                         <span class="glyphicon glyphicon-shopping-cart"></span> Cart [<?php echo $numOfItems; ?>] </a></li>
                     <?php } ?>
-            <li><a href="#"><?php echo $_SESSION["userRealname"]; ?></a></li>
+                    <li><a href="#"><?php echo $_SESSION["userRealname"]; ?></a></li>
                     <li><a href="logout.php">Logout</a></li>
-<?php } else { ?>
+                <?php } else { ?>
                     <li><a href="login.php">Login</a></li>
                 <?php } ?>
             </ul>

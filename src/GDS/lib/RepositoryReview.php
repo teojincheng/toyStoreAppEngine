@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Author: Teo Jin Cheng
+ * 
  * This class represents one datastore.
  * Contains records of reviews of toys
  */

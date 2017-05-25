@@ -5,6 +5,12 @@ require_once('../config.php');
 $user_repo = new \GDS\lib\RepositoryUser();
 $loginFail = false;
 if (isset($_POST["username"])) {
+    /**
+     * get all the columns of the logged in user
+     * get the hased password stored in the database.
+     * use the php function to match the input password and stored password
+     * if successful, create session variables for this user. 
+     */
     $allInfoArr = $user_repo->getAllColsFromDatastore($_POST["username"]);
     $userHashed = $allInfoArr->password;
     if (password_verify($_POST["password"], $userHashed)) {
@@ -22,6 +28,7 @@ if (isset($_POST["username"])) {
         <title>Login-</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Teo Jin Cheng">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
               <link rel="stylesheet" href="css/main.css"> 
     </head>

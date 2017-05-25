@@ -12,6 +12,7 @@ $toy_repo = new \GDS\lib\Repository();
         <title>Terrific Toys</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Teo Jin Cheng">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/navbar.css">

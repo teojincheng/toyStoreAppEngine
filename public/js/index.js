@@ -1,3 +1,6 @@
+/*
+ * Author: Teo Jin Cheng 
+ */
 $("#myCarousel").hover(
         function () {
             $(".carousel-indicators li").css("visibility", "visible");

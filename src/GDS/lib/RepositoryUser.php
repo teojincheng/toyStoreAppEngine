@@ -3,6 +3,10 @@
 /**
  * Author: Teo Jin Cheng
  * 
+ * Usage of Library/Framework:
+ * https://github.com/tomwalder/php-gds
+ * 
+ * 
  * This class represents one datastore.
  * Contains records of users
  */

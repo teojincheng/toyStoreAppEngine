@@ -3,6 +3,9 @@
 /**
  * Author: Teo Jin Cheng
  * 
+ * Usage of Library/Framework:
+ * https://github.com/tomwalder/php-gds
+ * 
  * This class represents one datastore.
  * Contains records of reviews of toys
  */
@@ -34,7 +37,7 @@ class RepositoryReview {
    */
     public function getReviewsOfAToy($toyId) {
         $obj_store = $this->getStore();
-        $arr_reviews = $obj_store->query("SELECT * FROM reviews WHERE toyId = '".$toyId."'");
+        $arr_reviews = $obj_store->query("SELECT * FROM reviews WHERE toyId = $toyId")->fetchAll();
         return $arr_reviews;
     }
 

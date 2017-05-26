@@ -4,6 +4,9 @@
 /**
  * Author: Teo Jin Cheng 
  * 
+ * Usage of Library/Framework:
+ * https://github.com/tomwalder/php-gds
+ * 
  * This class represents one datastore.
  * Contains record of the ID for each datastore
  */

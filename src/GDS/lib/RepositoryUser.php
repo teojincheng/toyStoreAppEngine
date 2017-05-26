@@ -39,26 +39,7 @@ class RepositoryUser {
         
     }
 
-  
-
-    
-    
-    /**
-     * Check if login username and password matches the one stored in datastore
-     * retrieve the name of the user if there is a match. 
-     * 
-     * @param type $inUsername username that the user supplied when user logged in
-     * @param type $inPassword password the user supplied when the user logged in
-     * @return type return an array of user entity which contains entries where uername and password matches. 
-     */
-    public function loginUser($inUsername,$inPassword){
-        $obj_store = $this->getStore();
-        $arr_user = $obj_store->query("SELECT name FROM users WHERE username = '".$inUsername."' AND password = '".$inPassword."' ");
-        return $arr_user;
-    }
-
-    
-   
+ 
 
   /**
    * Inserts an entry of a user into the datastore. 

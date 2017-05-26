@@ -34,8 +34,8 @@ class RepositoryReview {
    */
     public function getReviewsOfAToy($toyId) {
         $obj_store = $this->getStore();
-        $arr_posts = $obj_store->query("SELECT * FROM reviews WHERE toyId = '".$toyId."'");
-        return $arr_posts;
+        $arr_reviews = $obj_store->query("SELECT * FROM reviews WHERE toyId = '".$toyId."'");
+        return $arr_reviews;
     }
 
     

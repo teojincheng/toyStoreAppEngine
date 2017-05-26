@@ -1,0 +1,13 @@
+/*
+Author: Teo Jin Cheng
+*/
+
+@media (min-width: 768px) {
+    h2 {
+        margin-left: 470px;
+    }
+}
+
+@media (max-width: 767px) {
+}
+

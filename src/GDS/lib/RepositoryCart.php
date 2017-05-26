@@ -31,8 +31,8 @@ class RepositoryCart {
      */
     public function getCartItemsOfUser($userId) {
         $obj_store = $this->getStore();
-        $arr_posts = $obj_store->query("SELECT * FROM carts WHERE userid = '" . $userId . "'");
-        return $arr_posts;
+        $arr_items = $obj_store->query("SELECT * FROM carts WHERE userid = '" . $userId . "'");
+        return $arr_items;
     }
 
     /**

@@ -57,35 +57,32 @@ class Repository {
           }
          */
         $obj_store = $this->getStore();
-        $arr_posts = $obj_store->query("SELECT * FROM toyStore ORDER BY posted DESC")->fetchPage(10);
-        return $arr_posts;
-    }
-    
-    
-    public function getRecentToysTopThree() {
-        $obj_store = $this->getStore();
-        $arr_posts = $obj_store->query("SELECT * FROM toyStore ORDER BY posted DESC")->fetchPage(3,0);
-        return $arr_posts;
-    }
-    
-        public function getRecentToysNextThree() {
-        $obj_store = $this->getStore();
-        $arr_posts = $obj_store->query("SELECT * FROM toyStore ORDER BY posted DESC")->fetchPage(3,3);
-        return $arr_posts;
+        $arr_toys = $obj_store->query("SELECT * FROM toyStore ORDER BY posted DESC")->fetchPage(10);
+        return $arr_toys;
     }
     
     /**
-     * Execute an sql query against this datastore
+     * Retrieve from the datastore the lastest 3 toys that were added
      * 
-     * @param type $sql the sql statement to execute
-     * @return type an array of toy entity as result of sql statment. 
+     * @return type array containing information about the toys
      */
-    
-    public function executeToysQuery($sql){
+    public function getRecentToysTopThree() {
         $obj_store = $this->getStore();
-        $arr_posts = $obj_store->query($sql)->fetchPage(100);
-        return $arr_posts;
+        $arr_toys = $obj_store->query("SELECT * FROM toyStore ORDER BY posted DESC")->fetchPage(3,0);
+        return $arr_toys;
     }
+    /**
+     * Retrieve from the datastore the next 3 latest toy that were added
+     * 
+     * @return type array containing information about the toys
+     */
+        public function getRecentToysNextThree() {
+        $obj_store = $this->getStore();
+        $arr_toys = $obj_store->query("SELECT * FROM toyStore ORDER BY posted DESC")->fetchPage(3,3);
+        return $arr_toys;
+    }
+    
+   
 
     /**
      * Retrieve all the toys in the datastore
@@ -94,8 +91,8 @@ class Repository {
      */
     public function getAllToys() {
         $obj_store = $this->getStore();
-        $arr_posts = $obj_store->fetchAll();
-        return $arr_posts;
+        $arr_toys = $obj_store->fetchAll();
+        return $arr_toys;
     }
 
     /**
@@ -153,8 +150,20 @@ class Repository {
     */
     public function getToyByEntityId($qId) {
         $obj_store = $this->getStore();
-        $obj_post = $obj_store->fetchById($qId);
-        return $obj_post;
+        $obj_toy = $obj_store->fetchById($qId);
+        return $obj_toy;
+    }
+    
+    /**
+     * get one toy entity based on id column in the datasore
+     * 
+     * @param type $qid the id of the toy in the datastore
+     * @return type array which contains information of the toy
+     */
+    public function getToyByToyId($qid){
+         $obj_store = $this->getStore();
+         $arr_toy = $obj_store->fetchOne("SELECT * FROM toyStore WHERE id =$qid");
+         return $arr_toy;
     }
 
     /**

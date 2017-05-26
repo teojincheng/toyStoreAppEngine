@@ -31,14 +31,13 @@ handlers:
 - url: /navbar.php
   script: public/navbar.php
 
-- url: /desSession.php
-  script: public/desSession.php
-  
-  
-
   
 - url: /index.php
   script: public/index.php
+  
+- url: /itemDetail.php
+  script: public/itemDetail.php
+  
   
   
 

@@ -7,3 +7,4 @@ config.php
 # composer.lock
 scripts/
 /nbproject/private/
+public/fol/

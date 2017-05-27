@@ -17,16 +17,16 @@ if (is_string($_GET["id"])) {
         $reviews_arr = $review_repo->getReviewsOfAToy($_GET["id"]);
     }
 }
-
+/**
+ * count the number of reviews
+ * caluclate the average rating which accompanies each review
+ */
 $numOfReviews = count($reviews_arr);
 $sumOfRating = 0;
 foreach ($reviews_arr as $obj_review) {
     $sumOfRating = $sumOfRating + $obj_review->rating;
-    
 }
-$avgRating = floor($sumOfRating/$numOfReviews);
-
-
+$avgRating = floor($sumOfRating / $numOfReviews);
 ?>
 
 <!DOCTYPE html>
@@ -45,9 +45,10 @@ $avgRating = floor($sumOfRating/$numOfReviews);
     <body>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<?php include 'navbar.php'; ?>
 
-<?php ?>
+        <?php include 'navbar.php'; ?>
+
+        <?php ?>
         <h2><?php echo $info_toy->name; ?></h2>
 
         <div class="container">
@@ -62,20 +63,59 @@ $avgRating = floor($sumOfRating/$numOfReviews);
                 </div>
 
             </div>
-            <hr
-                <div class="row">
+            <hr>
+            <div class="row">
                 <div class="col-md-8">
                     <h3>Reviews</h3>
-                    <div class="rating">
-                        <input type="radio" id="star5" name="rating" value="5" <?php if ($avgRating == 5) { ?> checked="checked" <?php } ?> /><label for="star5"></label>
-                        <input type="radio" id="star4" name="rating" value="4" <?php if ($avgRating == 4) { ?> checked="checked" <?php } ?> /><label for="star4"></label>
-                        <input type="radio" id="star3" name="rating" value="3" <?php if ($avgRating == 3) { ?> checked="checked" <?php } ?> /><label for="star3"></label>
-                        <input type="radio" id="star2" name="rating" value="2" <?php if ($avgRating == 2) { ?> checked="checked" <?php } ?> /><label for="star2"></label>
-                        <input type="radio" id="star1" name="rating" value="1" <?php if ($avgRating == 1) { ?> checked="checked" <?php } ?> /><label for="star1"></label>
-                    </div>
+
+                    <?php if ($avgRating == 0) { ?>
+                    <img class="img-responsive" src="img/emptyStars.png" alt="Rating is 0">
+                    <?php } elseif ($avgRating == 1) { ?>
+                    <img class="img-responsive" src="img/oneStar.png" alt="Rating is 1">
+                    <?php } elseif ($avgRating == 2) { ?>
+                    <img class="img-responsive" src="img/twoStar.png" alt="Rating is 2">
+                    <?php } elseif ($avgRating == 3) { ?>
+                    <img class="img-responsive" src="img/threeStar.png" alt="Rating is 3">
+                    <?php } elseif ($avgRating == 4) { ?>
+                    <img class="img-responsive" src="img/fourStar.png" alt="Rating is 4">
+                    <?php } elseif ($avgRating == 5) { ?>
+                    <img class="img-responsive" src="img/fiveStar.png" alt="Rating is 5">
+                    <?php } ?>
+
+                    <?php echo $numOfReviews; ?> reviews
                 </div>
             </div>
+            <?php foreach ($reviews_arr as $obj_review) { ?>
+                <hr>
+                <div class="row">
+                    <div class="col-md-4">
+                       <?php if ($obj_review->rating == 0) { ?>
+                    <img class="img-responsive" src="img/emptyStars.png" alt="Rating is 0">
+                    <?php } elseif ($obj_review->rating == 1) { ?>
+                    <img class="img-responsive" src="img/oneStar.png" alt="Rating is 1">
+                    <?php } elseif ($obj_review->rating == 2) { ?>
+                    <img class="img-responsive" src="img/twoStar.png" alt="Rating is 2">
+                    <?php } elseif ($obj_review->rating == 3) { ?>
+                    <img class="img-responsive" src="img/threeStar.png" alt="Rating is 3">
+                    <?php } elseif ($obj_review->rating == 4) { ?>
+                    <img class="img-responsive" src="img/fourStar.png" alt="Rating is 4">
+                    <?php } elseif ($obj_review->rating == 5) { ?>
+                    <img class="img-responsive" src="img/fiveStar.png" alt="Rating is 5">
+                    <?php } ?>
+                        By <?php echo $obj_review->username; ?>
+                        <br>
+                        <?php
+                        echo $obj_review->reviewText;
+                        ?>
+
+                    </div>
+                </div>
+                <?php
+            }
+            ?>
+
         </div>
+
 
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 

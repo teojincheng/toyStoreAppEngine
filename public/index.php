@@ -19,7 +19,7 @@ $toy_repo = new \GDS\lib\Repository();
 
     </head>
     <body>
-        <?php include 'navbar.php';  ?>
+        <?php include 'navbar.php'; ?>
         <?php
         // get the most recent added toys. 6 of them. 
         $arrLatestThree = $toy_repo->getRecentToysTopThree();
@@ -28,6 +28,7 @@ $toy_repo = new \GDS\lib\Repository();
 
         <div class="container">
 
+            <!-- Image Carousel-->
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
                 <ol class="carousel-indicators">
@@ -45,9 +46,6 @@ $toy_repo = new \GDS\lib\Repository();
                     <div class="item">
                         <img src="img/caro2.png" alt="">
                     </div>
-
-
-
                 </div>              
                 <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -58,7 +56,12 @@ $toy_repo = new \GDS\lib\Repository();
                     <span class="sr-only">Next</span>
                 </a>
             </div>
-            <h2>Popular toys</h2>
+            <h2>New toys</h2>
+            <!--
+            Latest 6 toys. 
+            Divided into 2 rows. 
+            For loop to display information about the toy
+            -->
             <div class="row">
                 <?php foreach ($arrLatestThree as $toy) { ?>
                     <div class="col-md-4">

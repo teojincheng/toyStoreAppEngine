@@ -42,21 +42,23 @@ class RepositoryReview {
     }
 
     
-
-  /**
-   * Inserts an entry of a reivew into datastore
-   * 
-   * @param type $int_id id of the entry
-   * @param type $int_toyid id of the toy
-   * @param type $str_username user's name who wrote the review
-   * @param type $str_review actual review itself
-   * @param type $int_rating rating of the toy
-   */
-    public function createReview($int_id,$int_toyid, $str_username, $str_review, $int_rating) {
+      /**
+       * Inserts one review of a toy into the datastore
+       * 
+       * @param type $int_id id of the review
+       * @param type $int_toyid id of the toy being reviewed
+       * @param type $int_userid id of the user writing the review
+       * @param type $str_username real name of user writing the review
+       * @param type $str_review the actual review text
+       * @param type $int_rating the rating of the toy accompanying the review. 
+       */
+ 
+    public function createReview($int_id,$int_toyid,$int_userid, $str_username, $str_review, $int_rating) {
         $obj_store = $this->getStore();
         $obj_store->upsert($obj_store->createEntity([
                     'id' => $int_id,
                     'toyId' => $int_toyid,
+                    'userid' => $int_userid,
                     'username' => $str_username,
                     'reviewText' => $str_review,
                     'rating' => $int_rating
@@ -82,6 +84,7 @@ class RepositoryReview {
         return (new Schema('reviews'))
                         ->addInteger('id')
                         ->addInteger('toyId')
+                        ->addInteger('userid')
                         ->addString('username')
                         ->addString('reviewText')
                         ->addInteger('rating')

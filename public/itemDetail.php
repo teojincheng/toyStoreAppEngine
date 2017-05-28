@@ -85,7 +85,24 @@ $avgRating = floor($sumOfRating / $numOfReviews);
 
                     <div id="numReviews" class="lineblock"  > <?php echo $numOfReviews; ?> reviews </div>
                     <br>
-                    <button type="button" data-toggle="modal" data-target="#formModal">Write a review</button>
+                    <?php
+                    $currUserMadeReview = false;
+                    if (isset($_SESSION["userid"])) {
+                        foreach ($reviews_arr as $obj_review) {
+                            if ($obj_review->userid == $_SESSION["userid"]) {
+                                $currUserMadeReview = true;
+                            }
+                        }
+                    }
+                    if (isset($_SESSION["userid"])) {
+                        if ($currUserMadeReview == false) {
+                            ?>
+                            <button type="button" data-toggle="modal" data-target="#formModal">Write a review</button>
+                            <?php
+                        }
+                    }
+                    ?>
+
 
                 </div>
             </div>

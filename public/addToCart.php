@@ -42,6 +42,7 @@ if (count($cart_arr) != 0) {
     $resultFromIdRepo->cartid = $newCartId;
     $id_repo->updateEntry($resultFromIdRepo);
 }
+header("Location: itemDetail.php?id=$toyid&q=$buyQty");
 
 
 

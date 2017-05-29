@@ -1,4 +1,8 @@
 <?php
+/**
+ * Usage of Library/Framework:
+ * https://github.com/CodeSeven/toastr
+ */
 session_start();
 require_once('../vendor/autoload.php');
 require_once('../config.php');
@@ -17,18 +21,21 @@ if (is_string($_GET["id"])) {
         $reviews_arr = $review_repo->getReviewsOfAToy($_GET["id"]);
     }
 }
+
+
 /**
  * count the number of reviews
  * caluclate the average rating which accompanies each review
  */
-
-// TODO TJC: Avoid divde by zero
 $numOfReviews = count($reviews_arr);
-$sumOfRating = 0;
-foreach ($reviews_arr as $obj_review) {
-    $sumOfRating = $sumOfRating + $obj_review->rating;
+$avgRating = 0;
+if ($numOfReviews != 0) {
+    $sumOfRating = 0;
+    foreach ($reviews_arr as $obj_review) {
+        $sumOfRating = $sumOfRating + $obj_review->rating;
+    }
+    $avgRating = $avgRating + ( floor($sumOfRating / $numOfReviews));
 }
-$avgRating = floor($sumOfRating / $numOfReviews);
 ?>
 
 <!DOCTYPE html>
@@ -48,6 +55,29 @@ $avgRating = floor($sumOfRating / $numOfReviews);
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+        <?php if (isset($_GET["q"])) { ?>
+            <script>
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+                toastr["success"]("<?php echo $info_toy->name; ?> <br> Quantity : <?php echo $_GET['q']; ?>", "Item added to cart successfully")
+            </script>
+        <?php } ?>
+
         <?php include 'navbar.php'; ?>
         <h2><?php echo $info_toy->name; ?></h2>
         <!-- Information of one toy -->
@@ -63,25 +93,26 @@ $avgRating = floor($sumOfRating / $numOfReviews);
                     <br>
                     <br>
                     <br>
-                    <?php if(isset($_SESSION["userid"])){  ?>
-                    <form action="addToCart.php" method="POST">
-                        Quantity:
-                        <select name="qty">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select> 
-                        <input type="hidden" name="toyid" value="<?php echo $_GET["id"]; ?>">
-                        <input type="hidden" name="userid" value="<?php echo $_SESSION["userid"];  ?>">
-                        <input type="hidden" name="unitprice" value="<?php echo $info_toy->price; ?>">
+                    <?php if (isset($_SESSION["userid"])) { ?>
+                        <form action="addToCart.php" method="POST">
+                            Quantity:
+                            <select name="qty">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select> 
+                            <input type="hidden" name="toyid" value="<?php echo $_GET["id"]; ?>">
+                            <input type="hidden" name="userid" value="<?php echo $_SESSION["userid"]; ?>">
+                            <input type="hidden" name="unitprice" value="<?php echo $info_toy->price; ?>">
 
-                        <input type="submit" value="Add to Cart" class="btn btn-primary">
-                    </form>
-                    <?php  }     ?>
+                            <input type="submit" value="Add to Cart" class="btn btn-primary">
+                        </form>
+                    <?php } ?>
                 </div>
 
             </div>
+
             <hr>
             <!-- Average rating gathered from reviews -->
             <div class="row">

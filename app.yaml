@@ -38,7 +38,10 @@ handlers:
 - url: /itemDetail.php
   script: public/itemDetail.php
   
-
+- url: /addToCart.php
+  script: public/addToCart.php
+  
+  
   
   
   

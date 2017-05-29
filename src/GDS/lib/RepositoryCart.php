@@ -34,8 +34,20 @@ class RepositoryCart {
      */
     public function getCartItemsOfUser($userId) {
         $obj_store = $this->getStore();
-        $arr_items = $obj_store->query("SELECT * FROM carts WHERE userid = '" . $userId . "'");
+        $arr_items = $obj_store->query("SELECT * FROM carts WHERE userid = $userId")->fetchAll();
         return $arr_items;
+    }
+    
+    /**
+     * Query the datastore with a toyid
+     * Used to determine if a toy already in the cart of the user
+     * 
+     * @param type $toyid id of the toy. 
+     */
+    public function getCartItemByToyId($userid,$toyid){
+         $obj_store = $this->getStore();
+         $arr_items = $obj_store->fetchOne("SELECT * FROM carts WHERE userid = $userid AND toyId = $toyid");
+         return $arr_items;
     }
 
     /**
@@ -56,6 +68,11 @@ class RepositoryCart {
                     'qty' => $int_qty,
                     'unitPrice' => $flt_unitPrice
         ]));
+    }
+    
+      public function updateCartItem($cartItemToUpdate) {
+        $obj_store = $this->getStore();
+        $obj_store->upsert($cartItemToUpdate);
     }
 
     /**

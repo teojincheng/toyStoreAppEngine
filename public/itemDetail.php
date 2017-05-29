@@ -21,6 +21,8 @@ if (is_string($_GET["id"])) {
  * count the number of reviews
  * caluclate the average rating which accompanies each review
  */
+
+// TODO TJC: Avoid divde by zero
 $numOfReviews = count($reviews_arr);
 $sumOfRating = 0;
 foreach ($reviews_arr as $obj_review) {
@@ -58,6 +60,25 @@ $avgRating = floor($sumOfRating / $numOfReviews);
                     <h4>Price: $<?php echo $info_toy->price; ?></h4>
                     <h4>Description: </h4>
                     <p><?php echo $info_toy->txtDescript; ?></p>
+                    <br>
+                    <br>
+                    <br>
+                    <?php if(isset($_SESSION["userid"])){  ?>
+                    <form action="addToCart.php" method="POST">
+                        Quantity:
+                        <select name="qty">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select> 
+                        <input type="hidden" name="toyid" value="<?php echo $_GET["id"]; ?>">
+                        <input type="hidden" name="userid" value="<?php echo $_SESSION["userid"];  ?>">
+                        <input type="hidden" name="unitprice" value="<?php echo $info_toy->price; ?>">
+
+                        <input type="submit" value="Add to Cart" class="btn btn-primary">
+                    </form>
+                    <?php  }     ?>
                 </div>
 
             </div>

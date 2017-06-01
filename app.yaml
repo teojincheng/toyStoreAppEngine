@@ -42,6 +42,11 @@ handlers:
   script: public/addToCart.php
   
   
+- url: /cartItems.php
+  script: public/cartItems.php
+  
+  
+  
   
   
   

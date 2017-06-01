@@ -65,7 +65,7 @@ if (isset($_SESSION["userRealname"])) {
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <?php if (isset($_SESSION["userRealname"])) { ?>
-                    <li><a href="shoppingCart.php">
+                    <li><a href="cartItems.php">
                             <?php if ($showZero) { ?>
                                 <span class="glyphicon glyphicon-shopping-cart"></span> Cart [0] </a></li>
                     <?php } else { ?>

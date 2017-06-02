@@ -31,7 +31,7 @@ class Repository {
      */
     private $obj_store = NULL;
     
-    
+    private $review_repo = NULL;
   
 
     /**
@@ -43,6 +43,11 @@ class Repository {
             $this->obj_cache = new \Memcached();
         }
         return $this->obj_cache;
+    }
+    
+    
+    public function foo(){
+        $review_repo = new RepositoryReview();
     }
 
     /**

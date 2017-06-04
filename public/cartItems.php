@@ -11,6 +11,8 @@ $toy_repo = new GDS\lib\Repository();
 $cartArr = $cart_repo->getCartItemsOfUser($_SESSION["userid"]);
 
 $cartTotal = 0;
+$tableRowCounter = 0;
+$numOfCartItem = count($cartArr);
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,18 +46,21 @@ $cartTotal = 0;
                             $toyInfo = $toy_repo->getToyByToyId($cartObj->toyId);
                             $cartTotal = $cartTotal + ($cartObj->unitPrice * $cartObj->qty);
                             ?>
-                            <tr>
+                            <tr id="tr<?php echo $tableRowCounter; ?>">
                                 <td><?php echo $toyInfo->name; ?><br><img class="img-responsive cartProduct" src="<?php echo $toyInfo->imgpath ?>" alt="<?php echo $toyInfo->name; ?>"></td>
                                 <td><?php echo $cartObj->qty; ?></td>
-                                <td><?php echo $cartObj->unitPrice; ?></td>
+                                <td>$<?php echo $cartObj->unitPrice; ?><br><span id="del<?php echo $tableRowCounter; ?>">Remove item</span></td>
 
                             </tr>
-                        <?php } ?>
-                            <tr>
-                                <td></td>
-                                <td>Total: </td>
-                                <td><?php echo $cartTotal; ?></td>
-                            </tr>
+                            <?php
+                            $tableRowCounter = $tableRowCounter + 1;
+                        }
+                        ?>
+                        <tr>
+                            <td></td>
+                            <td>Total: </td>
+                            <td>$<?php echo $cartTotal; ?></td>
+                        </tr>
 
 
 
@@ -67,18 +72,23 @@ $cartTotal = 0;
                 <div class="col-md-3">
                     <div id="checkOut">
                         <div id="innerContent">
-                        Total: <?php echo $cartTotal; ?>
-                        <br>
-                        <input type="submit" class="btn btn-warning" value="Checkout">
+                            Total: $<?php echo $cartTotal; ?>
+                            <br>
+                            <input type="submit" class="btn btn-warning" value="Checkout">
                         </div>
-                        </div>
+                    </div>
 
                 </div>
 
             </div>
 
         </div>
+        <script> var counter = <?php echo $tableRowCounter; ?> </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="js/cartItems.js"></script>
+   
+
+
     </body>
 </html>

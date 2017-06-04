@@ -45,8 +45,8 @@ handlers:
 - url: /cartItems.php
   script: public/cartItems.php
   
-  
-  
+- url: /checkOut.php
+  script: public/checkOut.php
   
   
   

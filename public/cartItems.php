@@ -32,7 +32,7 @@ $numOfCartItem = count($cartArr);
             <h2>Your Shopping Cart</h2>
             <div class="row">
                 <div class="col-md-9">
-                    <table class="table table-responsive">
+                    <table id="itemsTable" class="table table-responsive">
                         <thead>
                             <tr>
                                 <th>Item</th>
@@ -48,8 +48,8 @@ $numOfCartItem = count($cartArr);
                             ?>
                             <tr id="tr<?php echo $tableRowCounter; ?>">
                                 <td><?php echo $toyInfo->name; ?><br><img class="img-responsive cartProduct" src="<?php echo $toyInfo->imgpath ?>" alt="<?php echo $toyInfo->name; ?>"></td>
-                                <td><?php echo $cartObj->qty; ?></td>
-                                <td>$<?php echo $cartObj->unitPrice; ?><br><span id="del<?php echo $tableRowCounter; ?>">Remove item</span></td>
+                                <td class="itemQty"><?php echo $cartObj->qty; ?></td>
+                                <td>$<span class="unitPrice"><?php echo $cartObj->unitPrice; ?></span><br><span id="del<?php echo $tableRowCounter; ?>">Remove item</span></td>
 
                             </tr>
                             <?php
@@ -59,12 +59,8 @@ $numOfCartItem = count($cartArr);
                         <tr>
                             <td></td>
                             <td>Total: </td>
-                            <td>$<?php echo $cartTotal; ?></td>
+                            <td>$<span id="cartTotalBottom"><?php echo $cartTotal; ?></span></td>
                         </tr>
-
-
-
-
                     </table>
 
 
@@ -72,7 +68,7 @@ $numOfCartItem = count($cartArr);
                 <div class="col-md-3">
                     <div id="checkOut">
                         <div id="innerContent">
-                            Total: $<?php echo $cartTotal; ?>
+                            <span> Total: $<span id="cartTotalSide"><?php echo $cartTotal; ?></span> </span>
                             <br>
                             <input type="submit" class="btn btn-warning" value="Checkout">
                         </div>

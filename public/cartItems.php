@@ -46,13 +46,24 @@ $arrOfCartId = array();
                             $cartTotal = $cartTotal + ($cartObj->unitPrice * $cartObj->qty);
                             ?>
                             <tr id="tr<?php echo $cartObj->id; ?>">
+
                                 <td><?php echo $toyInfo->name; ?><br><img class="img-responsive cartProduct" src="<?php echo $toyInfo->imgpath ?>" alt="<?php echo $toyInfo->name; ?>"></td>
-                                <td class="itemQty"><?php echo $cartObj->qty; ?></td>
+
+                                <td>
+                                    <select class="itemQty">
+                                        <option value="1" <?php if ($cartObj->qty == 1) { ?>selected <?php } ?> >1</option>
+                                        <option value="2" <?php if ($cartObj->qty == 2) { ?>selected <?php } ?> >2</option>
+                                        <option value="3" <?php if ($cartObj->qty == 3) { ?>selected <?php } ?> >3</option>
+                                        <option value="4" <?php if ($cartObj->qty == 4) { ?>selected <?php } ?>>4</option>
+                                    </select>
+                                </td>
+
+
                                 <td>$<span class="unitPrice"><?php echo $cartObj->unitPrice; ?></span><br><span id="del<?php echo $cartObj->id; ?>">Remove item</span></td>
 
                             </tr>
                             <?php
-                            array_push($arrOfCartId,$cartObj->id);
+                            array_push($arrOfCartId, $cartObj->id);
                         }
                         ?>
                         <tr>
@@ -78,12 +89,12 @@ $arrOfCartId = array();
             </div>
 
         </div>
-        <script>  var arrOfId = <?php echo json_encode($arrOfCartId);  ?></script>
-        
+        <script>  var arrOfId = <?php echo json_encode($arrOfCartId); ?></script>
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="js/cartItems.js"></script>
-   
+
 
 
     </body>

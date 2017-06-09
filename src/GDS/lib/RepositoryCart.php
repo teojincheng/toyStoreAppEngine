@@ -24,8 +24,6 @@ class RepositoryCart {
      */
     private $obj_store = NULL;
 
-    
-
     /**
      * Retrive all the cart items of one user.
      * 
@@ -37,33 +35,39 @@ class RepositoryCart {
         $arr_items = $obj_store->query("SELECT * FROM carts WHERE userid = $userId")->fetchAll();
         return $arr_items;
     }
-    
+
     /**
      * Query the datastore with a toyid
      * Used to determine if a toy already in the cart of the user
      * 
      * @param type $toyid id of the toy. 
      */
-    public function getCartItemByToyId($userid,$toyid){
-         $obj_store = $this->getStore();
-         $arr_items = $obj_store->fetchOne("SELECT * FROM carts WHERE userid = $userid AND toyId = $toyid");
-         return $arr_items;
+    public function getCartItemByToyId($userid, $toyid) {
+        $obj_store = $this->getStore();
+        $arr_items = $obj_store->fetchOne("SELECT * FROM carts WHERE userid = $userid AND toyId = $toyid");
+        return $arr_items;
     }
-  
 
- public function getCartEntityById($id){
-     $obj_store = $this->getStore();
-     $cart_obj = $obj_store->fetchOne("SELECT * FROM carts WHERE id= $id");
-     return $cart_obj;
- }
- 
- 
- public function deleteOneCartEntity($entity){
-     $obj_store = $this->getStore();
-     $obj_store->delete($entity);
- }
-    
-    
+    /**
+     * Retrieve one cart enity from the datastore
+     * @param type $id unique id of the entry of cart item in the datastore
+     * @return type one cart entity
+     */
+    public function getCartEntityById($id) {
+        $obj_store = $this->getStore();
+        $cart_obj = $obj_store->fetchOne("SELECT * FROM carts WHERE id= $id");
+        return $cart_obj;
+    }
+
+    /**
+     * Delete one entry from the datastore. 
+     * @param type $entity the cart entity to be removed. 
+     */
+    public function deleteOneCartEntity($entity) {
+        $obj_store = $this->getStore();
+        $obj_store->delete($entity);
+    }
+
     /**
      * Insert an entry of one cart item into datastore
      * 
@@ -83,8 +87,8 @@ class RepositoryCart {
                     'unitPrice' => $flt_unitPrice
         ]));
     }
-    
-      public function updateCartItem($cartItemToUpdate) {
+
+    public function updateCartItem($cartItemToUpdate) {
         $obj_store = $this->getStore();
         $obj_store->upsert($cartItemToUpdate);
     }

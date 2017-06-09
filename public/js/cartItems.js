@@ -39,7 +39,7 @@ function calculateNewTotal() {
     var priceList = document.getElementsByClassName("unitPrice");
 
     for (var j = 0; j < qtyList.length; j++) {
-        var qty = parseInt(qtyList[j].innerHTML);
+        var qty = parseInt(qtyList[j].options[qtyList[j].selectedIndex].value);
         var price = parseFloat(priceList[j].innerHTML);
         var itemTotal = qty * price;
 

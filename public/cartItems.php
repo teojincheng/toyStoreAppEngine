@@ -11,8 +11,7 @@ $toy_repo = new GDS\lib\Repository();
 $cartArr = $cart_repo->getCartItemsOfUser($_SESSION["userid"]);
 
 $cartTotal = 0;
-$tableRowCounter = 0;
-$numOfCartItem = count($cartArr);
+$arrOfCartId = array();
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,14 +45,14 @@ $numOfCartItem = count($cartArr);
                             $toyInfo = $toy_repo->getToyByToyId($cartObj->toyId);
                             $cartTotal = $cartTotal + ($cartObj->unitPrice * $cartObj->qty);
                             ?>
-                            <tr id="tr<?php echo $tableRowCounter; ?>">
+                            <tr id="tr<?php echo $cartObj->id; ?>">
                                 <td><?php echo $toyInfo->name; ?><br><img class="img-responsive cartProduct" src="<?php echo $toyInfo->imgpath ?>" alt="<?php echo $toyInfo->name; ?>"></td>
                                 <td class="itemQty"><?php echo $cartObj->qty; ?></td>
-                                <td>$<span class="unitPrice"><?php echo $cartObj->unitPrice; ?></span><br><span id="del<?php echo $tableRowCounter; ?>">Remove item</span></td>
+                                <td>$<span class="unitPrice"><?php echo $cartObj->unitPrice; ?></span><br><span id="del<?php echo $cartObj->id; ?>">Remove item</span></td>
 
                             </tr>
                             <?php
-                            $tableRowCounter = $tableRowCounter + 1;
+                            array_push($arrOfCartId,$cartObj->id);
                         }
                         ?>
                         <tr>
@@ -79,7 +78,8 @@ $numOfCartItem = count($cartArr);
             </div>
 
         </div>
-        <script> var counter = <?php echo $tableRowCounter; ?> </script>
+        <script>  var arrOfId = <?php echo json_encode($arrOfCartId);  ?></script>
+        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="js/cartItems.js"></script>

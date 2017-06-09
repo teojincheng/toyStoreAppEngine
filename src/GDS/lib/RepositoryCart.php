@@ -49,7 +49,21 @@ class RepositoryCart {
          $arr_items = $obj_store->fetchOne("SELECT * FROM carts WHERE userid = $userid AND toyId = $toyid");
          return $arr_items;
     }
+  
 
+ public function getCartEntityById($id){
+     $obj_store = $this->getStore();
+     $cart_obj = $obj_store->fetchOne("SELECT * FROM carts WHERE id= $id");
+     return $cart_obj;
+ }
+ 
+ 
+ public function deleteOneCartEntity($entity){
+     $obj_store = $this->getStore();
+     $obj_store->delete($entity);
+ }
+    
+    
     /**
      * Insert an entry of one cart item into datastore
      * 

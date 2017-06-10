@@ -50,7 +50,7 @@ $arrOfCartId = array();
                                 <td><?php echo $toyInfo->name; ?><br><img class="img-responsive cartProduct" src="<?php echo $toyInfo->imgpath ?>" alt="<?php echo $toyInfo->name; ?>"></td>
 
                                 <td>
-                                    <select class="itemQty">
+                                    <select id="itemQty<?php echo $cartObj->id; ?>">
                                         <option value="1" <?php if ($cartObj->qty == 1) { ?>selected <?php } ?> >1</option>
                                         <option value="2" <?php if ($cartObj->qty == 2) { ?>selected <?php } ?> >2</option>
                                         <option value="3" <?php if ($cartObj->qty == 3) { ?>selected <?php } ?> >3</option>
@@ -59,7 +59,7 @@ $arrOfCartId = array();
                                 </td>
 
 
-                                <td>$<span class="unitPrice"><?php echo $cartObj->unitPrice; ?></span><br><span id="del<?php echo $cartObj->id; ?>">Remove item</span></td>
+                                <td>$<span id="unitPrice<?php echo $cartObj->id; ?>"><?php echo $cartObj->unitPrice; ?></span><br><span id="del<?php echo $cartObj->id; ?>">Remove item</span></td>
 
                             </tr>
                             <?php

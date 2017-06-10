@@ -24,7 +24,26 @@ function asyncDelete(cartId) {
             alert(this.responseText);
         }
     }
-    xmlhttp.open("GET", "updateCart.php?q=" + cartId, true);
+    xmlhttp.open("GET", "updateCart.php?d=" + cartId, true);
+    xmlhttp.send();
+}
+
+function asyncUpdate(cartId){
+    var qtyNode = document.getElementById("itemQty"+cartId);
+    var qty = parseInt(qtyNode.options[qtyNode.selectedIndex].value);
+    
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } else { // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            alert(this.responseText);
+        }
+    }
+    xmlhttp.open("GET", "updateCart.php?u=" + cartId + "&q="+qty, true);
     xmlhttp.send();
 }
 
@@ -33,22 +52,46 @@ function asyncDelete(cartId) {
  * Sets the new total price in the html element
  * 
  */
-function calculateNewTotal() {
+function calculateNewTotal(num,arrOfIds) {
     var cartTotal = 0;
-    var qtyList = document.getElementsByClassName("itemQty");
-    var priceList = document.getElementsByClassName("unitPrice");
+    var toRemoveIndex = arrOfIds.indexOf(num);
+    arrOfIds.splice(toRemoveIndex,1);
+    for (var i = 0; i < arrOfIds.length; i++) {
+        
+       
 
-    for (var j = 0; j < qtyList.length; j++) {
-        var qty = parseInt(qtyList[j].options[qtyList[j].selectedIndex].value);
-        var price = parseFloat(priceList[j].innerHTML);
+        var idToStr = arrOfIds[i].toString();
+
+        var qtyNode = document.getElementById("itemQty" + idToStr);
+        var priceNode = document.getElementById("unitPrice" + idToStr);
+
+        var qty = parseInt(qtyNode.options[qtyNode.selectedIndex].value);
+        var price = parseFloat(priceNode.innerHTML);
         var itemTotal = qty * price;
 
         cartTotal = cartTotal + itemTotal;
-
+    
     }
+
     document.getElementById("cartTotalBottom").innerHTML = cartTotal.toString();
     document.getElementById("cartTotalSide").innerHTML = cartTotal.toString();
 
+    /*
+     var cartTotal = 0;
+     var qtyList = document.getElementsByClassName("itemQty");
+     var priceList = document.getElementsByClassName("unitPrice");
+     
+     for (var j = 0; j < qtyList.length; j++) {
+     var qty = parseInt(qtyList[j].options[qtyList[j].selectedIndex].value);
+     var price = parseFloat(priceList[j].innerHTML);
+     var itemTotal = qty * price;
+     
+     cartTotal = cartTotal + itemTotal;
+     
+     }
+     document.getElementById("cartTotalBottom").innerHTML = cartTotal.toString();
+     document.getElementById("cartTotalSide").innerHTML = cartTotal.toString();
+     */
 }
 
 /**
@@ -59,7 +102,7 @@ function calculateNewTotal() {
  * 
  */
 
-function fadeFunction(num) {
+function fadeFunction(num,arrOfId) {
 
     var o = num.toString();
 
@@ -68,7 +111,7 @@ function fadeFunction(num) {
     var child = document.getElementById("tr" + o);
     child.parentElement.removeChild(child);
     setTimeout(function () {
-        calculateNewTotal();
+        calculateNewTotal(num,arrOfId);
     }, 650);
     asyncDelete(o);
 
@@ -81,11 +124,20 @@ function fadeFunction(num) {
  * 
  */
 
-function addListener(num) {
+function addClickListener(num,arrOfId) {
     var n = "del" + num.toString();
     document.getElementById(n).addEventListener("click", function () {
-        fadeFunction(num);
+        fadeFunction(num,arrOfId);
     });
+}
+
+function addChangeListener(num) {
+    
+    var p = "itemQty" + num.toString();
+    document.getElementById(p).addEventListener("change",function(){asyncUpdate(num.toString());
+    
+    });
+
 }
 
 
@@ -97,7 +149,8 @@ var cartIdsToReg = arrOfId;
  * */
 
 for (var i = 0; i < cartIdsToReg.length; i++) {
-    addListener(cartIdsToReg[i]);
+    addClickListener(cartIdsToReg[i],cartIdsToReg);
+    addChangeListener(cartIdsToReg[i]);
 }
 
 

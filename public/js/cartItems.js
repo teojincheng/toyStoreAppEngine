@@ -28,10 +28,14 @@ function asyncDelete(cartId) {
     xmlhttp.send();
 }
 
-function asyncUpdate(cartId){
-    var qtyNode = document.getElementById("itemQty"+cartId);
+function asyncUpdate(cartId, arrOfId) {
+    var qtyNode = document.getElementById("itemQty" + cartId);
+    var priceNode = document.getElementById("unitPrice" + cartId);
     var qty = parseInt(qtyNode.options[qtyNode.selectedIndex].value);
-    
+    var price = parseFloat(priceNode.innerHTML);
+    var itemTotal = qty * price;
+
+
     if (window.XMLHttpRequest) {
         // code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
@@ -40,11 +44,30 @@ function asyncUpdate(cartId){
     }
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+            calculateTotal(arrOfId);
             alert(this.responseText);
         }
     }
-    xmlhttp.open("GET", "updateCart.php?u=" + cartId + "&q="+qty, true);
+    xmlhttp.open("GET", "updateCart.php?u=" + cartId + "&q=" + qty, true);
     xmlhttp.send();
+}
+
+function calculateTotal(arrOfIds) {
+    var cartTotal = 0;
+    for (var i = 0; i < arrOfIds.length; i++) {
+        var idToStr = arrOfIds[i].toString();
+
+        var qtyNode = document.getElementById("itemQty" + idToStr);
+        var priceNode = document.getElementById("unitPrice" + idToStr);
+
+        var qty = parseInt(qtyNode.options[qtyNode.selectedIndex].value);
+        var price = parseFloat(priceNode.innerHTML);
+        var itemTotal = qty * price;
+
+        cartTotal = cartTotal + itemTotal;
+    }
+    document.getElementById("cartTotalBottom").innerHTML = cartTotal.toString();
+    document.getElementById("cartTotalSide").innerHTML = cartTotal.toString();
 }
 
 /*
@@ -52,13 +75,13 @@ function asyncUpdate(cartId){
  * Sets the new total price in the html element
  * 
  */
-function calculateNewTotal(num,arrOfIds) {
+function calculateNewTotal(num, arrOfIds) {
     var cartTotal = 0;
     var toRemoveIndex = arrOfIds.indexOf(num);
-    arrOfIds.splice(toRemoveIndex,1);
+    arrOfIds.splice(toRemoveIndex, 1);
     for (var i = 0; i < arrOfIds.length; i++) {
-        
-       
+
+
 
         var idToStr = arrOfIds[i].toString();
 
@@ -70,7 +93,7 @@ function calculateNewTotal(num,arrOfIds) {
         var itemTotal = qty * price;
 
         cartTotal = cartTotal + itemTotal;
-    
+
     }
 
     document.getElementById("cartTotalBottom").innerHTML = cartTotal.toString();
@@ -102,7 +125,7 @@ function calculateNewTotal(num,arrOfIds) {
  * 
  */
 
-function fadeFunction(num,arrOfId) {
+function fadeFunction(num, arrOfId) {
 
     var o = num.toString();
 
@@ -111,7 +134,7 @@ function fadeFunction(num,arrOfId) {
     var child = document.getElementById("tr" + o);
     child.parentElement.removeChild(child);
     setTimeout(function () {
-        calculateNewTotal(num,arrOfId);
+        calculateNewTotal(num, arrOfId);
     }, 650);
     asyncDelete(o);
 
@@ -124,18 +147,19 @@ function fadeFunction(num,arrOfId) {
  * 
  */
 
-function addClickListener(num,arrOfId) {
+function addClickListener(num, arrOfId) {
     var n = "del" + num.toString();
     document.getElementById(n).addEventListener("click", function () {
-        fadeFunction(num,arrOfId);
+        fadeFunction(num, arrOfId);
     });
 }
 
-function addChangeListener(num) {
-    
+function addChangeListener(num, arrOfId) {
+
     var p = "itemQty" + num.toString();
-    document.getElementById(p).addEventListener("change",function(){asyncUpdate(num.toString());
-    
+    document.getElementById(p).addEventListener("change", function () {
+        asyncUpdate(num.toString(), arrOfId);
+
     });
 
 }
@@ -149,8 +173,8 @@ var cartIdsToReg = arrOfId;
  * */
 
 for (var i = 0; i < cartIdsToReg.length; i++) {
-    addClickListener(cartIdsToReg[i],cartIdsToReg);
-    addChangeListener(cartIdsToReg[i]);
+    addClickListener(cartIdsToReg[i], cartIdsToReg);
+    addChangeListener(cartIdsToReg[i], cartIdsToReg);
 }
 
 

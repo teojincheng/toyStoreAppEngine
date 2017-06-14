@@ -1,9 +1,9 @@
 /* 
  *Author: Teo Jin Cheng
  *
- *When user clicks on the remove item link on the shopping cart page, 
- *make the table row of that toy disappear to simulate 
- *removing from cart.  
+ *When user removes a cart item or change the qty of an item in the cart, update the datastore
+ *and refresh the page. 
+ *
  */
 
 
@@ -28,14 +28,15 @@ function asyncDelete(cartId) {
     xmlhttp.send();
 }
 
+/**
+ * AJAX call to update the qty of one cart item in the datastore
+ * @param {type} cartId id of the entry of one item in the cart datastore
+ * @param {type} arrOfId an array which contains id of the cart items in the datastore
+ * @returns {undefined}
+ */
 function asyncUpdate(cartId, arrOfId) {
     var qtyNode = document.getElementById("itemQty" + cartId);
-    var priceNode = document.getElementById("unitPrice" + cartId);
     var qty = parseInt(qtyNode.options[qtyNode.selectedIndex].value);
-    var price = parseFloat(priceNode.innerHTML);
-    var itemTotal = qty * price;
-
-
     if (window.XMLHttpRequest) {
         // code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
@@ -52,6 +53,13 @@ function asyncUpdate(cartId, arrOfId) {
     xmlhttp.send();
 }
 
+/**
+ * Caculate the total cost of the items in the cart based on the html markup. 
+ * Used when user only changes the qty of a cart item.
+ * 
+ * @param {type} arrOfIds an array which contains id of the cart items in the datastore
+
+ */
 function calculateTotal(arrOfIds) {
     var cartTotal = 0;
     for (var i = 0; i < arrOfIds.length; i++) {
@@ -66,14 +74,17 @@ function calculateTotal(arrOfIds) {
 
         cartTotal = cartTotal + itemTotal;
     }
-    document.getElementById("cartTotalBottom").innerHTML = cartTotal.toString();
-    document.getElementById("cartTotalSide").innerHTML = cartTotal.toString();
+    document.getElementById("cartTotalBottom").innerHTML = cartTotal.toFixed(2);
+    document.getElementById("cartTotalSide").innerHTML = cartTotal.toFixed(2);
 }
 
-/*
+/**
+ * 
  * Calculate the total price of the items in the shopping cart after the person remove a item.
  * Sets the new total price in the html element
  * 
+ * @param {type} num id of the cart item in the datastore
+ * @param {type} arrOfIds an array which contains id of the cart items in the datastore
  */
 function calculateNewTotal(num, arrOfIds) {
     var cartTotal = 0;
@@ -96,25 +107,10 @@ function calculateNewTotal(num, arrOfIds) {
 
     }
 
-    document.getElementById("cartTotalBottom").innerHTML = cartTotal.toString();
-    document.getElementById("cartTotalSide").innerHTML = cartTotal.toString();
+    document.getElementById("cartTotalBottom").innerHTML = cartTotal.toFixed(2);
+    document.getElementById("cartTotalSide").innerHTML = cartTotal.toFixed(2);
 
-    /*
-     var cartTotal = 0;
-     var qtyList = document.getElementsByClassName("itemQty");
-     var priceList = document.getElementsByClassName("unitPrice");
-     
-     for (var j = 0; j < qtyList.length; j++) {
-     var qty = parseInt(qtyList[j].options[qtyList[j].selectedIndex].value);
-     var price = parseFloat(priceList[j].innerHTML);
-     var itemTotal = qty * price;
-     
-     cartTotal = cartTotal + itemTotal;
-     
-     }
-     document.getElementById("cartTotalBottom").innerHTML = cartTotal.toString();
-     document.getElementById("cartTotalSide").innerHTML = cartTotal.toString();
-     */
+
 }
 
 /**
@@ -141,10 +137,10 @@ function fadeFunction(num, arrOfId) {
 }
 
 /**
- * Register element to event listener. 
- * @param {type} num unique id of the link element that the user clicks to 
- * reomove cart iem. 
+ * Register the click listener for a remove cart item link
  * 
+ * @param {type} num id of the cart item in the datastore
+ * @param {type} arrOfId an array which contains id of the cart items in the datastore
  */
 
 function addClickListener(num, arrOfId) {
@@ -153,6 +149,13 @@ function addClickListener(num, arrOfId) {
         fadeFunction(num, arrOfId);
     });
 }
+
+/**
+ * Register the change listener for the item qty dropdown
+ * 
+ * @param {type} num id of the cart item in the datastore
+ * @param {type} arrOfId arrOfId an array which contains id of the cart items in the datastore
+ */
 
 function addChangeListener(num, arrOfId) {
 
@@ -169,7 +172,7 @@ var cartIdsToReg = arrOfId;
 
 
 /* 
- * For every 'remove item link' in the shopping cart, register the click listener. 
+ * For every item in the shopping cart, register the event listener. 
  * */
 
 for (var i = 0; i < cartIdsToReg.length; i++) {

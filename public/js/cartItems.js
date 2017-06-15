@@ -21,7 +21,7 @@ function asyncDelete(cartId) {
     }
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            alert(this.responseText);
+            
         }
     }
     xmlhttp.open("GET", "updateCart.php?d=" + cartId, true);
@@ -46,7 +46,7 @@ function asyncUpdate(cartId, arrOfId) {
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             calculateTotal(arrOfId);
-            alert(this.responseText);
+           
         }
     }
     xmlhttp.open("GET", "updateCart.php?u=" + cartId + "&q=" + qty, true);
@@ -123,16 +123,16 @@ function calculateNewTotal(num, arrOfIds) {
 
 function fadeFunction(num, arrOfId) {
 
-    var o = num.toString();
+    var idNum = num.toString();
 
-    $("#tr" + o).fadeOut("slow");
+    $("#tr" + idNum).fadeOut("slow");
 
-    var child = document.getElementById("tr" + o);
+    var child = document.getElementById("tr" + idNum);
     child.parentElement.removeChild(child);
     setTimeout(function () {
         calculateNewTotal(num, arrOfId);
     }, 650);
-    asyncDelete(o);
+    asyncDelete(idNum);
 
 }
 
@@ -144,8 +144,8 @@ function fadeFunction(num, arrOfId) {
  */
 
 function addClickListener(num, arrOfId) {
-    var n = "del" + num.toString();
-    document.getElementById(n).addEventListener("click", function () {
+    var idNum = "del" + num.toString();
+    document.getElementById(idNum).addEventListener("click", function () {
         fadeFunction(num, arrOfId);
     });
 }
@@ -159,8 +159,8 @@ function addClickListener(num, arrOfId) {
 
 function addChangeListener(num, arrOfId) {
 
-    var p = "itemQty" + num.toString();
-    document.getElementById(p).addEventListener("change", function () {
+    var idNum = "itemQty" + num.toString();
+    document.getElementById(idNum).addEventListener("change", function () {
         asyncUpdate(num.toString(), arrOfId);
 
     });

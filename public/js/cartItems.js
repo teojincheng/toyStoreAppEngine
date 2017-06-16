@@ -92,8 +92,6 @@ function calculateNewTotal(num, arrOfIds) {
     arrOfIds.splice(toRemoveIndex, 1);
     for (var i = 0; i < arrOfIds.length; i++) {
 
-
-
         var idToStr = arrOfIds[i].toString();
 
         var qtyNode = document.getElementById("itemQty" + idToStr);
@@ -133,6 +131,13 @@ function fadeFunction(num, arrOfId) {
         calculateNewTotal(num, arrOfId);
     }, 650);
     asyncDelete(idNum);
+    
+    
+    
+    if(arrOfId.length == 1){
+        var mainContent = document.getElementById("mainContent");
+        mainContent.innerHTML = "<div class='col-md-9'><p id='noItem'>No items in your cart</p></div>";
+    }
 
 }
 

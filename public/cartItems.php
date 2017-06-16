@@ -10,6 +10,7 @@ $toy_repo = new GDS\lib\Repository();
 
 $cartArr = $cart_repo->getCartItemsOfUser($_SESSION["userid"]);
 
+$numOfCartItems = count($cartArr);
 $cartTotal = 0;
 $arrOfCartId = array();
 ?>
@@ -29,64 +30,69 @@ $arrOfCartId = array();
 
         <div class="container">
             <h2>Your Shopping Cart</h2>
-            <div class="row">
-                <div class="col-md-9">
-                    <table id="itemsTable" class="table table-responsive">
-                        <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th>Quantity</th>
-                                <th>Unit Price</th>
-                            </tr>
-                        </thead>
+            <div id="mainContent" class="row">
+                 <div class="col-md-9">
+                <?php if ($numOfCartItems == 0) { ?>
+                    <p id="noItem">No items in your cart</p>
+                 </div>
+                <?php } else { ?>
+                    <div class="col-md-9">
+                        <table id="itemsTable" class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                    <th>Unit Price</th>
+                                </tr>
+                            </thead>
 
-                        <?php
-                        foreach ($cartArr as $cartObj) {
-                            $toyInfo = $toy_repo->getToyByToyId($cartObj->toyId);
-                            $cartTotal = $cartTotal + ($cartObj->unitPrice * $cartObj->qty);
-                            ?>
-                            <tr id="tr<?php echo $cartObj->id; ?>">
-
-                                <td><?php echo $toyInfo->name; ?><br><img class="img-responsive cartProduct" src="<?php echo $toyInfo->imgpath ?>" alt="<?php echo $toyInfo->name; ?>"></td>
-
-                                <td>
-                                    <select id="itemQty<?php echo $cartObj->id; ?>">
-                                        <option value="1" <?php if ($cartObj->qty == 1) { ?>selected <?php } ?> >1</option>
-                                        <option value="2" <?php if ($cartObj->qty == 2) { ?>selected <?php } ?> >2</option>
-                                        <option value="3" <?php if ($cartObj->qty == 3) { ?>selected <?php } ?> >3</option>
-                                        <option value="4" <?php if ($cartObj->qty == 4) { ?>selected <?php } ?>>4</option>
-                                    </select>
-                                </td>
-
-
-                                <td>$<span id="unitPrice<?php echo $cartObj->id; ?>"><?php echo $cartObj->unitPrice; ?></span><br><span id="del<?php echo $cartObj->id; ?>">Remove item</span></td>
-
-                            </tr>
                             <?php
-                            array_push($arrOfCartId, $cartObj->id);
-                        }
-                        ?>
-                        <tr>
-                            <td></td>
-                            <td>Total: </td>
-                            <td>$<span id="cartTotalBottom"><?php echo $cartTotal; ?></span></td>
-                        </tr>
-                    </table>
+                            foreach ($cartArr as $cartObj) {
+                                $toyInfo = $toy_repo->getToyByToyId($cartObj->toyId);
+                                $cartTotal = $cartTotal + ($cartObj->unitPrice * $cartObj->qty);
+                                ?>
+                                <tr id="tr<?php echo $cartObj->id; ?>">
+
+                                    <td><?php echo $toyInfo->name; ?><br><img class="img-responsive cartProduct" src="<?php echo $toyInfo->imgpath ?>" alt="<?php echo $toyInfo->name; ?>"></td>
+
+                                    <td>
+                                        <select id="itemQty<?php echo $cartObj->id; ?>">
+                                            <option value="1" <?php if ($cartObj->qty == 1) { ?>selected <?php } ?> >1</option>
+                                            <option value="2" <?php if ($cartObj->qty == 2) { ?>selected <?php } ?> >2</option>
+                                            <option value="3" <?php if ($cartObj->qty == 3) { ?>selected <?php } ?> >3</option>
+                                            <option value="4" <?php if ($cartObj->qty == 4) { ?>selected <?php } ?>>4</option>
+                                        </select>
+                                    </td>
 
 
-                </div>
-                <div class="col-md-3">
-                    <div id="checkOut">
-                        <div id="innerContent">
-                            <span> Total: $<span id="cartTotalSide"><?php echo $cartTotal; ?></span> </span>
-                            <br>
-                            <input type="submit" class="btn btn-warning" value="Checkout">
-                        </div>
+                                    <td>$<span id="unitPrice<?php echo $cartObj->id; ?>"><?php echo $cartObj->unitPrice; ?></span><br><span id="del<?php echo $cartObj->id; ?>">Remove item</span></td>
+
+                                </tr>
+                                <?php
+                                array_push($arrOfCartId, $cartObj->id);
+                            }
+                            ?>
+                            <tr>
+                                <td></td>
+                                <td>Total: </td>
+                                <td>$<span id="cartTotalBottom"><?php echo $cartTotal; ?></span></td>
+                            </tr>
+                        </table>
+
+
                     </div>
+                    <div class="col-md-3">
+                        <div id="checkOut">
+                            <div id="innerContent">
+                                <span> Total: $<span id="cartTotalSide"><?php echo $cartTotal; ?></span> </span>
+                                <br>
+                                <input type="submit" class="btn btn-warning" value="Checkout">
+                            </div>
+                        </div>
 
-                </div>
-
-            </div>
+                    </div>
+                <?php } ?>
+            </div> <!-- /div main content -->
 
         </div>
         <script>  var arrOfId = <?php echo json_encode($arrOfCartId); ?></script>

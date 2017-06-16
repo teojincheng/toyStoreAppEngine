@@ -5,6 +5,10 @@ Author: Teo Jin Cheng
     width:200px;
 }
 
+#noItem{
+    margin-left:10px;
+}
+
 
 #checkOut{
     background-color: #c2c2c2 !important;

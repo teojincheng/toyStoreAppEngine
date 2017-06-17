@@ -69,7 +69,7 @@ if (isset($_SESSION["userRealname"])) {
                             <?php if ($showZero) { ?>
                                 <span class="glyphicon glyphicon-shopping-cart"></span> Cart [0] </a></li>
                     <?php } else { ?>
-                        <span class="glyphicon glyphicon-shopping-cart"></span> Cart [<?php echo $numOfItems; ?>] </a></li>
+                                <span class="glyphicon glyphicon-shopping-cart"></span> Cart [<span id="cartNum"><?php echo $numOfItems; ?></span>] </a></li>
                     <?php } ?>
                     <li><a href="#"><?php echo $_SESSION["userRealname"]; ?></a></li>
                     <li><a href="logout.php">Logout</a></li>

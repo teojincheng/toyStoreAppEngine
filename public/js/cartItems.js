@@ -8,6 +8,27 @@
 
 
 /**
+ * 
+ * @param {type} qty
+ * @returns {undefined}
+ */
+function navBarCartDelete(qty){
+   var currQty = parseInt(document.getElementById("cartNum").innerHTML);
+   var newQty = currQty - qty;
+   console.log("why");
+   console.log(newQty);
+   document.getElementById("cartNum").innerHTML= newQty;
+    
+}
+
+function navBarCartUpdate(oldQty,newQty){
+ 
+}
+
+
+
+
+/**
  * AJAX call to delete one item in the cart of the user. 
  * @param {type} cartId id of the entry in the cart datastore
  * @returns {undefined}
@@ -150,8 +171,12 @@ function fadeFunction(num, arrOfId) {
 
 function addClickListener(num, arrOfId) {
     var idNum = "del" + num.toString();
+    var idNumQty = "itemQty" + num.toString();
+    var currQtyNode = document.getElementById(idNumQty);
+    var qty = parseInt(currQtyNode.options[currQtyNode.selectedIndex].value);
     document.getElementById(idNum).addEventListener("click", function () {
         fadeFunction(num, arrOfId);
+        navBarCartDelete(qty);
     });
 }
 
@@ -165,12 +190,18 @@ function addClickListener(num, arrOfId) {
 function addChangeListener(num, arrOfId) {
 
     var idNum = "itemQty" + num.toString();
+    var currQtyNode = document.getElementById(idNum);
+    var oldQty = parseInt(currQtyNode.options[currQtyNode.selectedIndex].value);
     document.getElementById(idNum).addEventListener("change", function () {
         asyncUpdate(num.toString(), arrOfId);
+         var newQty = parseInt(currQtyNode.options[currQtyNode.selectedIndex].value);
+        navBarCartUpdate(oldQty,newQty);
 
     });
 
 }
+
+
 
 
 var cartIdsToReg = arrOfId;

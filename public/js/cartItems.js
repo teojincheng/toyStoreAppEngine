@@ -8,22 +8,40 @@
 
 
 /**
- * 
- * @param {type} qty
- * @returns {undefined}
+ * When an item is removed from the cart, update the quantity as shown on the navbar cart logo.
+ * @param {type} qty the amount of toys removed from the cart
  */
 function navBarCartDelete(qty){
    var currQty = parseInt(document.getElementById("cartNum").innerHTML);
    var newQty = currQty - qty;
-   console.log("why");
-   console.log(newQty);
    document.getElementById("cartNum").innerHTML= newQty;
     
 }
 
-function navBarCartUpdate(oldQty,newQty){
- 
+/**
+ * When the user changes the qty of a item in cart. Query the datastore and find out what is the qty of 
+ * each cart item. Update the quantity as shown on the navbar cart logo
+ * 
+ * @param {type} userid id the of the current user in the datastore 
+ */
+function getAllQuantity(userid){
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } else { // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var result = this.responseText;
+            document.getElementById("cartNum").innerHTML = result;
+        }
+    }
+    xmlhttp.open("GET", "updateCart.php?qr=" + userid, true);
+    xmlhttp.send();
 }
+
+
 
 
 
@@ -31,7 +49,6 @@ function navBarCartUpdate(oldQty,newQty){
 /**
  * AJAX call to delete one item in the cart of the user. 
  * @param {type} cartId id of the entry in the cart datastore
- * @returns {undefined}
  */
 function asyncDelete(cartId) {
     if (window.XMLHttpRequest) {
@@ -53,9 +70,8 @@ function asyncDelete(cartId) {
  * AJAX call to update the qty of one cart item in the datastore
  * @param {type} cartId id of the entry of one item in the cart datastore
  * @param {type} arrOfId an array which contains id of the cart items in the datastore
- * @returns {undefined}
  */
-function asyncUpdate(cartId, arrOfId) {
+function asyncUpdate(cartId, arrOfId,userid) {
     var qtyNode = document.getElementById("itemQty" + cartId);
     var qty = parseInt(qtyNode.options[qtyNode.selectedIndex].value);
     if (window.XMLHttpRequest) {
@@ -67,6 +83,7 @@ function asyncUpdate(cartId, arrOfId) {
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             calculateTotal(arrOfId);
+            getAllQuantity(userid);
            
         }
     }
@@ -181,22 +198,19 @@ function addClickListener(num, arrOfId) {
 }
 
 /**
- * Register the change listener for the item qty dropdown
+ * Register the change listener for the html qty dropdown.
  * 
- * @param {type} num id of the cart item in the datastore
- * @param {type} arrOfId arrOfId an array which contains id of the cart items in the datastore
+ * @param {type} userid id of the current user in the datastore
+ * @param {type} num id of the cart item in the datastore.
+ * @param {type} arrOfId an array which contains id of the cart items in the datastore
  */
 
-function addChangeListener(num, arrOfId) {
+function addChangeListener(userid,num, arrOfId) {
 
     var idNum = "itemQty" + num.toString();
-    var currQtyNode = document.getElementById(idNum);
-    var oldQty = parseInt(currQtyNode.options[currQtyNode.selectedIndex].value);
+    
     document.getElementById(idNum).addEventListener("change", function () {
-        asyncUpdate(num.toString(), arrOfId);
-         var newQty = parseInt(currQtyNode.options[currQtyNode.selectedIndex].value);
-        navBarCartUpdate(oldQty,newQty);
-
+        asyncUpdate(num.toString(), arrOfId,userid);
     });
 
 }
@@ -205,6 +219,7 @@ function addChangeListener(num, arrOfId) {
 
 
 var cartIdsToReg = arrOfId;
+var userId = currUserId;
 
 
 /* 
@@ -213,7 +228,7 @@ var cartIdsToReg = arrOfId;
 
 for (var i = 0; i < cartIdsToReg.length; i++) {
     addClickListener(cartIdsToReg[i], cartIdsToReg);
-    addChangeListener(cartIdsToReg[i], cartIdsToReg);
+    addChangeListener(userId,cartIdsToReg[i], cartIdsToReg);
 }
 
 

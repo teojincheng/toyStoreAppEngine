@@ -21,4 +21,12 @@ else if(isset($_GET["u"])){
     $cart_obj->qty = $newQty;
     $cart_repo->updateCartItem($cart_obj);
     echo "successfully updated datastore";
+}else if(isset($_GET["qr"])){
+    $userId = $_GET["qr"];
+    $totalQty = 0;
+    $cart_obj = $cart_repo->getCartItemsOfUser($userId);
+    foreach ($cart_obj as $cartObj) {
+         $totalQty = $totalQty + $cartObj->qty;
+     }
+     echo $totalQty;
 }

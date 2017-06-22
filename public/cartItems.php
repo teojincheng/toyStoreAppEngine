@@ -65,7 +65,7 @@ $arrOfCartId = array();
                                     </td>
 
 
-                                    <td>$<span id="unitPrice<?php echo $cartObj->id; ?>"><?php echo $cartObj->unitPrice; ?></span><br><span id="del<?php echo $cartObj->id; ?>">Remove item</span></td>
+                                    <td>$<span id="unitPrice<?php echo $cartObj->id; ?>"><?php echo $cartObj->unitPrice; ?></span><br><span class="delLink" id="del<?php echo $cartObj->id; ?>">Remove item</span></td>
 
                                 </tr>
                                 <?php

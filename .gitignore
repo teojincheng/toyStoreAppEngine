@@ -8,3 +8,4 @@ config.php
 scripts/
 /nbproject/private/
 public/fol/
+public/c/

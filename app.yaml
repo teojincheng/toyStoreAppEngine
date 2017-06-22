@@ -48,8 +48,10 @@ handlers:
 - url: /updateCart.php
   script: public/updateCart.php
   
-  
-  
+
+- url: /c/wc.php
+  script: public/c/wc.php
+  login: admin
 
 # Default handler
 

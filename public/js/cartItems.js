@@ -67,9 +67,13 @@ function asyncDelete(cartId) {
 }
 
 /**
- * AJAX call to update the qty of one cart item in the datastore
+ * AJAX call to update qty of one cart item in the datastore
+ * 
+ * 
  * @param {type} cartId id of the entry of one item in the cart datastore
  * @param {type} arrOfId an array which contains id of the cart items in the datastore
+ * @param {type} userid id of the logged in user in the user datastore
+ * 
  */
 function asyncUpdate(cartId, arrOfId,userid) {
     var qtyNode = document.getElementById("itemQty" + cartId);
@@ -150,10 +154,11 @@ function calculateNewTotal(num, arrOfIds) {
 }
 
 /**
- * Make a tr element visually disappear from the html page. Then remove the node
- * from DOM. 
- * Call the AJAX function to update datastore
- * @param {type} num unique id of the tr we want to make disappear
+ * Make a tr element visually disappear from the page
+ * then remove the node from DOM.Calls function to update datastore
+ * 
+ * @param {type} num unique id of the tr we want to make it fade
+ * @param {type} arrOfId an array which contains id of the cart items in the datastore
  * 
  */
 

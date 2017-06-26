@@ -37,10 +37,11 @@ class RepositoryCart {
     }
 
     /**
-     * Query the datastore with a toyid
-     * Used to determine if a toy already in the cart of the user
+     * Query the cart datastore and get item of user
      * 
-     * @param type $toyid id of the toy. 
+     * @param type $userid id of the user in the datastore
+     * @param type $toyid id of the toy in the datastore
+     * @return type an array which contain one cart item entity
      */
     public function getCartItemByToyId($userid, $toyid) {
         $obj_store = $this->getStore();

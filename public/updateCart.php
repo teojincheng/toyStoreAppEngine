@@ -1,6 +1,8 @@
 <?php
 /**
  * Author: Teo Jin Cheng
+ * 
+ * PHP script that process AJAX calls
  */
 require_once('../vendor/autoload.php');
 require_once('../config.php');

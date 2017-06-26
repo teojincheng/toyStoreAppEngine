@@ -75,8 +75,9 @@ class RepositoryId {
     }
     
     /**
+     * Get all the ids
      * 
-     * @return type
+     * @return type one id entity
      */
 
     public function retrieveId() {
@@ -85,8 +86,9 @@ class RepositoryId {
     }
 
     /**
+     * Update the id
      * 
-     * @param type $entityToUpdate
+     * @param type $entityToUpdate the entry/entity in this datastore
      */
     public function updateEntry($entityToUpdate) {
         $obj_store = $this->getStore();

@@ -46,9 +46,7 @@ class Repository {
     }
     
     
-    public function foo(){
-        $review_repo = new RepositoryReview();
-    }
+  
 
     /**
      * Retrieve recently added toys

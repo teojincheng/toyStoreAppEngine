@@ -30,6 +30,9 @@ handlers:
   
 - url: /navbar.php
   script: public/navbar.php
+  
+- url: /footer.php
+  script: public/footer.php
 
   
 - url: /index.php

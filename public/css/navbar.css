@@ -1,6 +1,11 @@
 /* 
 Author: Teo Jin Cheng
 */
+
+body{
+    margin-bottom: 60px;
+}
+
 @media (min-width: 768px) {
     .needVertical{
         border-right-style: solid;
@@ -33,3 +38,6 @@ Author: Teo Jin Cheng
     }
 
 }
+
+
+

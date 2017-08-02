@@ -7,15 +7,7 @@ body{
 }
 
 @media (min-width: 768px) {
-    .needVertical{
-        border-right-style: solid;
-        border-right-width: 1px;
-    }
 
-    .dropdown-toggle{
-        border-right-style: solid;
-        border-right-width: 1px;
-    }
 
     #firstNavLi{
         border-left-style: solid;
@@ -25,13 +17,7 @@ body{
 
 
 @media (max-width: 767px) {
-    .needVertical{
-        border-right-style: none;
-    }
-
-    .dropdown-toggle{
-        border-right-style: none;
-    }
+    
 
     #firstNavLi{
         border-left-style: none;

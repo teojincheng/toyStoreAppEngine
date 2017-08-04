@@ -1,6 +1,8 @@
 # toyStoreAppEngine
 An example of an online store. Created using PHP on Google App Engine.
 
+Demo: http://mtoys-167102.appspot.com/
+
 This web app make use of Google Cloud Datastore as it's database. The static images of the toys are stored on Google Cloud Storage.
 AJAX was used to update the shopping cart.
 
@@ -15,3 +17,4 @@ AJAX was used to update the shopping cart.
 - php-gds : https://github.com/tomwalder/php-gds
 - bootstrap(front-end) : http://getbootstrap.com/
 - toastr: http://codeseven.github.io/toastr/
+

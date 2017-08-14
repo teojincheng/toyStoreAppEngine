@@ -6,24 +6,7 @@ body{
     margin-bottom: 60px;
 }
 
-@media (min-width: 768px) {
 
-
-    #firstNavLi{
-        border-left-style: solid;
-        border-left-width: 1px;
-    }
-}
-
-
-@media (max-width: 767px) {
-    
-
-    #firstNavLi{
-        border-left-style: none;
-    }
-
-}
 
 
 

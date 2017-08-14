@@ -42,9 +42,9 @@ if (isset($_SESSION["userRealname"])) {
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
 
-                <li><a id="firstNavLi" class="needVertical" href="#">Soft toys</a> </li> 
-                <li><a class="needVertical" href="#">Model kits</a></li> 
-                <li><a class="needVertical" href="#">Vehicles</a></li> 
+                <li><a href="#">Soft toys</a> </li> 
+                <li><a href="#">Model kits</a></li> 
+                <li><a href="#">Vehicles</a></li> 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Brands <span class="caret"></span></a>
                     <ul class="dropdown-menu">
